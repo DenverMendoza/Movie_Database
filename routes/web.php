@@ -18,8 +18,12 @@ Route::get('/', function () {
 });
 
 Route::view('form', 'denver');
-
-Route::get('employeeList', [UserController::class, 'getEmployee']);
-
 Route::post('user', [UserController::class, 'addEmployee']);
-Route::view('employee', 'employee');
+
+Route::get('employee', [UserController::class, 'getEmployee']);
+
+Route::get('edit/{id}', [UserController::class, 'getEmployeeById']);
+
+Route::get('try1/{hehe}', function($hehe){
+    return $hehe."hello World";
+});

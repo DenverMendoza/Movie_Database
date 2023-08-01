@@ -8,17 +8,40 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    function getEmployee()
-    {
-        $first_name = $this->getFirstName();
-        
-        $emp = User::all();
-        return view('employee', compact("emp", "first_name"));
+
+    //Add Employee to the Employee Table
+    function addEmployee(Request $req)
+    {   
+        if($req->hasFile('image'))
+        {
+            $image = $req->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $filename);
+
+            $user = new User();
+            $user->first_name = $req->first_name;
+            $user->image = $filename;
+
+            $user->save();
+
+            return redirect('employee')->with('success', "thanks");
+        }
     }
 
-    private function getFirstName()
+    function getEmployee()
     {
-        return User::where('id', 2)
-        ->pluck('first_name');
+        $emp = User::all();
+        return view('employee', ['emp'=>$emp]);
+    }
+
+    function getEmployeeById($id)
+    {
+        $emp = User::where('Id', $id)->get();
+
+        return $emp;
+    }
+
+    function try($try){
+        echo $try;
     }
 }
