@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('form', 'denver');
+Route::view('form', 'form');
 Route::post('user', [UserController::class, 'addEmployee']);
 
 Route::get('employee', [UserController::class, 'getEmployee']);
@@ -27,3 +27,5 @@ Route::get('edit/{id}', [UserController::class, 'getEmployeeById']);
 Route::get('try1/{hehe}', function($hehe){
     return $hehe."hello World";
 });
+
+Route::post('check_email', [UserController::class, 'email_Checker']);

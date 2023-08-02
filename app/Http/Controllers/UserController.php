@@ -25,6 +25,8 @@ class UserController extends Controller
             $user->save();
 
             return redirect('employee')->with('success', "thanks");
+        }else{
+            return redirect('form')->with('error', "no Image");
         }
     }
 
@@ -41,7 +43,15 @@ class UserController extends Controller
         return $emp;
     }
 
-    function try($try){
-        echo $try;
+    function email_Checker(Request $req){
+        $email = $req->input('email');
+
+        $user = User::where('address', $email)->first();
+
+        if($user){
+            return response()->json(['exists' => true]);
+        }
+
+        return response()->json(['exists' => false]);
     }
 }
